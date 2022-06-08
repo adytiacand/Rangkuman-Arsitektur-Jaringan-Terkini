@@ -78,7 +78,15 @@ Kedua, langkah-langkah untuk membuat 1 mesin **EC2 Instance** di AWS Console seb
     >Note: Name and tags: **Tugas Akhir**
 5. Pilih port dari *Network Setting* sebagai berikut:
     ![Pilih Network](./pic/j.png)
-    >
+ 
+    Type Protocol | Port|
+    ---|---
+    SSH | 27 |
+    HTTP | 80 |
+    HTTPS | 433 |
+    TCP | 8080 |
+    TCP | 8081 |
+
 6. Kemudian pilih **Review** dan **Launch**. Maka akan tampil halaman berikut ini, kita memilih *key pair* secara default yaitu __Vockey__.
     ![Pilih Key](./pic/k.png)
 
@@ -211,7 +219,7 @@ Contoh kode yang telah dijalankan:
 >Keterangan:
 > 
 >- Pada perintah nodes, dapat diketahui hasil nnya ialah sebagai berikut: **c0** adalah controller, **h1** dan **h2** adalah host, **s1** adalah switch. 
-> - Pada perintah net, dapat diketahui hubungan atau link, sebagai berikut: h1 dihubungkan melalui port h1-eth0 dengan s1-eth1 dan h2 dihubungkan dengan port h2-eth0 dengan s1-eth2. 
+> - Pada perintah net, dapat diketahui hubungan atau link, sebagai berikut: h1 dihubungkan melalui **port h1-eth0** dengan **s1-eth1** dan h2 dihubungkan dengan port **h2-eth0** dengan **s1-eth2**. 
 >- Pada perintah dump ditampilkan informasi host dan switch beserta alamat ip dan pid-nya. 
 
 Untuk mengetahui sintaks lebih banyak dapat mengakses kode berikut:
@@ -233,9 +241,9 @@ mininet> h1 ping -c 2 h2
 ![pingall](./pic/pingall.png)
 >Keterangan:
 > 
-> - Pada perintah pingall dapat diartikan semua node saling ping, apabila berhasil maka akan ada hubungan.
-> - Pada perintah h1 ping - c 5 h2, dapat diartikan h1 melakukan ping ke h2, menggunakan controller, dengan 5 kali ping.
-> - Saat perintah tersebut dijalanlkan dapat dilihat waktu pengiriman selama beberapa ms, terdapat informasi mengenai packet loss dan berapa paket yang berhasil ditransmisikan. 
+> - Pada perintah **pingall** dapat diartikan semua node saling ping, apabila berhasil maka akan ada hubungan.
+> - Pada perintah **h1 ping - c 5 h2**, dapat diartikan **h1** melakukan ping ke **h2**, menggunakan **controller**, dengan **5 kali** ping.
+> - Saat perintah tersebut dijalanlkan dapat dilihat **waktu pengiriman** selama beberapa ms, terdapat **informasi mengenai packet loss** dan berapa **paket yang berhasil ditransmisikan**. 
 
 Untuk mengakhiri CLI Mininet dapat menggunakan perintah:
 ```
