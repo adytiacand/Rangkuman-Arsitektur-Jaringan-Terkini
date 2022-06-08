@@ -57,7 +57,7 @@ Langkah selanjutnya, adalah kita menekan tombol **AWS**, kemudian akan membuat m
 - Configure storage: **30 GiB, gp3**
 
 
-Pertama, kita masuk ke **AWS**, kemudian pilih **EC2**, kemudian **Instances** dan menampilkan halaman berikut:
+Pertama, kita masuk ke **AWS**, kemudian pilih **EC2**, kemudian **Instances** dan menampilkan halaman berikut: <br>
 
 ![Halaman Instances](./pic/e.png)
 
@@ -65,18 +65,18 @@ Pertama, kita masuk ke **AWS**, kemudian pilih **EC2**, kemudian **Instances** d
 
 Kedua, langkah-langkah untuk membuat 1 mesin **EC2 Instance** di AWS Console sebagai berikut:
 
-1. Pilih AMI (Amazon Machine Image):
+1. Pilih AMI (Amazon Machine Image):<br>
     ![Pilih AMI](./pic/f.png)
     >Note: **Ubuntu Server 20.04 LTS (HVM), SSD Volume Type**
-2. Pilih Instance type **t2.medium**:
+2. Pilih Instance type **t2.medium**:<br>
     ![Pilih Instances](./pic/g.png)
-3. Tambahkan penyimpanan:
+3. Tambahkan penyimpanan:<br>
     ![Pilih Storage](./pic/h.png)
     >Note: Configure storage: **30 GiB, gp3**
-4. Tuliskan nama Tags: 
+4. Tuliskan nama Tags: <br>
     ![Pilih Tags](./pic/i.png)
     >Note: Name and tags: **Tugas Akhir**
-5. Pilih port dari *Network Setting* sebagai berikut:
+5. Pilih port dari *Network Setting* sebagai berikut: <br>
     ![Pilih Network](./pic/j.png)
  
     Type Protocol | Port|
@@ -87,7 +87,7 @@ Kedua, langkah-langkah untuk membuat 1 mesin **EC2 Instance** di AWS Console seb
     TCP | 8080 |
     TCP | 8081 |
 
-6. Kemudian pilih **Review** dan **Launch**. Maka akan tampil halaman berikut ini, kita memilih *key pair* secara default yaitu __Vockey__.
+6. Kemudian pilih **Review** dan **Launch**. Maka akan tampil halaman berikut ini, kita memilih *key pair* secara default yaitu __Vockey__. <br>
     ![Pilih Key](./pic/k.png)
 
 Selamat, mesin Anda telah dibuat dan akan masuk ke daftar mesin yang telah Anda buat. Langkah selanjutnya, kita akan menginstall beberapa aplikasi dalam Linux, yang akan digunakan untuk langkah praktikum. 
@@ -194,10 +194,10 @@ Untuk membuat sebuah topologi ketikan kode berikut:
 ```
 $ sudo mn
 ```
-Perintah tersebut akan menjalankan program di bawah ini :
+Perintah tersebut akan menjalankan program di bawah ini : <br>
 ![sudomn](./pic/sudomn.png)
 
-Program di atas dapat diamati secara tampilan sebagai berikut:
+Program di atas dapat diamati secara tampilan sebagai berikut: <br>
 ![topologi1](./pic/topologi1.png)
 
 > Keterangan: Dalam program di atas, kita membuat dua host yang bernama **h1** dan **h2**, kemudian membuat satu controller yang bernama **c0** dan satu switch yang bernama **s1**. 
@@ -214,7 +214,7 @@ Untuk mengetahui informasi **informasi nodes** maka dapat menggunakan sintaks be
 ```
 mininet> dump
 ```
-Contoh kode yang telah dijalankan:
+Contoh kode yang telah dijalankan: <br>
 ![mininet](./pic/mininet.png)
 >Keterangan:
 > 
@@ -238,6 +238,8 @@ Jalankan kode berikut:
 mininet> pingall
 mininet> h1 ping -c 2 h2
 ```
+<br>
+
 ![pingall](./pic/pingall.png)
 >Keterangan:
 > 
@@ -257,7 +259,7 @@ mininet> exit
 ## Apa itu Custom Topology?
 Custom Topology adalah pembuatan topologi secara bebas dengan mengeksekusi sebuah code oleh mininet. Dalam pembuatan custom topology dapat dilakukan dengan 2 cara, yaitu secara manual dengan menulis kode python atau membuat konfigurasi topologi menggunakan GUI editor seperti *Virtual Network Description (vnd)* kemudian diexport ke bentuk file yang dapat di-running oleh mininet.
 
-Kali ini kita akan membuat custom topology sederhana dengan kasus sebagai berikut.
+Kali ini kita akan membuat custom topology sederhana dengan kasus sebagai berikut.<br>
 ![soal](./pic2/soalct.png)
 
 >Keterangan :
@@ -329,7 +331,7 @@ Tulislah dengan perintah berikut di terminal AWS:
 ```
 $ nano custom_topology.py
 ```
-Maka akan tampil seperti gambar berikut, dan tulis kodenya seperti di atas. 
+Maka akan tampil seperti gambar berikut, dan tulis kodenya seperti di atas. <br>
 
 ![code](./pic2/code.png)
 
@@ -338,7 +340,7 @@ Langkah pengerjaan praktikum:
 ```
 $ sudo mn --controller=none --custom custom_topology.py --topo=mytopo --mac --arp
 ```
-Maka akan jalan seperti berikut ini:
+Maka akan jalan seperti berikut ini:<br>
 ![running](./pic2/running.png)
 
 Untuk mengetahui nodes yang telah dibuat kita menggunakan kode:
@@ -346,7 +348,7 @@ Untuk mengetahui nodes yang telah dibuat kita menggunakan kode:
 ```
 mininet> nodes
 ```
-dan akan keluar tampilan berikut:
+dan akan keluar tampilan berikut:<br>
 ![nodes](./pic2/nodes.png)
 > Keterangan: Nodes terdiri atas **6 Host : h1, h2, h3, h4, h5 dan h6** serta **3 Switch: s1, s2, s3**, dan tidak ada **controller**.
 
@@ -355,7 +357,7 @@ Kemudian untuk mengetahui hubungan, kita dapat menggunakan sintaks dibawah ini
 ```
 mininet> links
 ```
-dan akan keluar tampilan berikut:
+dan akan keluar tampilan berikut:<br>
 
 ![links](./pic2/links.png)
 
@@ -395,7 +397,7 @@ Perintah berikut digunakan untuk mengetahui antarmuka h1:
 ```
 mininet> h1 ifconfig
 ```
-dan tampilan pada terminal:
+dan tampilan pada terminal: <br>
 ![h1](./pic2/h1ifconfig.png)
 > Perintah ini mengeksekusi perintah ifconfig Linux pada host h1. Perintah menunjukkan
 antarmuka host h1. Tampilan menunjukkan bahwa host h1 memiliki antarmuka h1-eth0 yang dikonfigurasi
@@ -806,7 +808,7 @@ Pada program **topo_lb.py** akan membentuk topologi seperti gambar di atas. yang
 - h3 sebagai web server `mininet> h3 python3 -m http.server 80 &`
 - h4 sebagai web server `mininet> h4 python3 -m http.server 80 &`
 
-Maka terminal akan menampilkan:
+Maka terminal akan menampilkan: <br>
 ![server](./pic3/server.png)
 
 Pada program **rr_lb.py** secara umum akan mengeksekusi
@@ -828,6 +830,8 @@ Selanjutnya lakukan percobaan pada mininet console:
 ```
 mininet> h1 curl 10.0.0.100
 ```
+<br>
+
 ![penjelasan1](./pic3/penjelasan1.png)
 > Keterangan bahwa server yang dipilih adalah server h2, hal ini dibuktikan bahwa *selected server is h2 with ip 10.0.0.2. Melalui IP 10.0.0.100.
 
@@ -835,6 +839,7 @@ Selanjutnya lakukan percobaan kembali pada mininet console:
 ```
 mininet> h1 curl 10.0.0.100
 ```
+<br>
 
 ![penjelasan2](./pic3/penjelasan2.png)
 
@@ -845,12 +850,16 @@ Kemudian eksekusi perintah berikut:
 ```
 mininet> dpctl dump-flows -O OpenFlow13 
 ```
+<br>
+
 ![dpctl](./pic3/dpctl.png)
 
 Terakhir, untuk mengecek ARP dapat menggunakan:
 ```
 mininet> h1 arp -a
 ```
+<br>
+
 ![arp](./pic3/arp.png)
 
 ## Apa itu ARP?
@@ -1202,7 +1211,7 @@ if __name__ == '__main__':
 ```
 ## Langkah-langkah praktikum:
 1. Lakukanlah mode `mininet> tmux` seperti pelajaran 2.
-2. Apabila sudah membuka split windows maka akan tampil seperti ini:
+2. Apabila sudah membuka split windows maka akan tampil seperti ini:<br>
 ![tmux2](./pic3/tmux2.png)
 
 3. Masukkan perintah berikut pada terminal 1.
@@ -1213,7 +1222,7 @@ $ ryu-manager --observe-links dijkstra_Ryu_controller.py
 ```
 $ sudo python3 topo-spf_lab.py
 ```
-Maka hasil percobaan akan tampak:
+Maka hasil percobaan akan tampak:<br>
 ![tmux2](./pic3/topo.png)
 
 5. Melakukan test ping pada seluruhnya
@@ -1221,19 +1230,19 @@ Maka hasil percobaan akan tampak:
 ```
 mininet> pingall
 ```
-![pingall1](./pic3/pingall1.png)
+![pingall1](./pic3/pingall1.png)<br>
 >Ternyata tidak semua paket dapat terkirim dan diterima.
 
-6. Melakukan cek ping
+6. Melakukan cek ping<br>
 ![ping](./pic3/ping.png)
 >Setelah melakukan ping berbagai host ternyata paket masih bisa berjalan.
 
-7. Melakukan pingall lagi.
+7. Melakukan pingall lagi.<br>
 ![pingall2](./pic3/pingall2.png)
 >Semua paket dapat dikirimkan.
 
 Kesimpulan, adapun langkah 5 mengapa pingall tidak berhasil 100%, karena program masih dieksekusi, sehingga tidak semua dapat terakses. Sementara itu, saat langkah 7 dijalankan kembali, maka paket perhasil tidak ada yang loss. Untuk mengetahui paket loss dan received, dapat juga dilihat melalui ipconfig.
-
+<br>
 ![ipconfig](./pic3/h1config.png)
 > Keterangan:
 > - Paket sebesar : 962 dengan bytes sebesar 59430 (59.4 KB)
