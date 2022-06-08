@@ -823,7 +823,7 @@ mininet> dump
 mininet> links
 mininet> net
 ```
-Maka hasilnya seperti berikut:
+Maka hasilnya seperti berikut: <br>
 ![hubungan](./pic3/hubungan.png)
 
 Selanjutnya lakukan percobaan pada mininet console:
