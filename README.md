@@ -13,13 +13,13 @@ Sebelum memulai praktikum, kita terlebih dahulu menyiapkan insfrastruktur dan me
 
 Maka akan masuk seperti tampilan berikut:
 
-![Halaman Masuk](./a..png)
+![Halaman Masuk](./pic/a..png)
 
 >Note: Silahkan pilih yang student Login, kemudia Masuk sesuai akun Anda. 
 
 Kemudian maka akan tampil halaman berikut ini:
 
-![Halaman Dashboard](./b.png)
+![Halaman Dashboard](./pic/b.png)
 
 >Note: Pilih kelas sesuai arahan Dosen Anda.
 
@@ -34,7 +34,7 @@ Untuk mmelihat __Vocareum Labs__ dapat dilakukan dengan masuk ke:
 
 Setelah Anda masuk __Vocareum Labs__ akan masuk ke dalam halaman pengkodingan seperti berikut ini:
 
-![Halaman Vocareum Lab](./c.png)
+![Halaman Vocareum Lab](./pic/c.png)
 
 Secara umum halaman di Vocareum Labs, membantu kita untuk melakukan pengkodingan langsung pada mesin yang akan dibuat. Dalam Vocareum Labs terdapat beberapa tombol yang akan dijelaskan sebagai berikut.
 
@@ -59,28 +59,28 @@ Langkah selanjutnya, adalah kita menekan tombol **AWS**, kemudian akan membuat m
 
 Pertama, kita masuk ke **AWS**, kemudian pilih **EC2**, kemudian **Instances** dan menampilkan halaman berikut:
 
-![Halaman Instances](./e.png)
+![Halaman Instances](./pic/e.png)
 
 >Note: Pilih **Launch Instances** untuk membuat mesin baru.
 
 Kedua, langkah-langkah untuk membuat 1 mesin **EC2 Instance** di AWS Console sebagai berikut:
 
 1. Pilih AMI (Amazon Machine Image):
-    ![Pilih AMI](./f.png)
+    ![Pilih AMI](./pic/f.png)
     >Note: **Ubuntu Server 20.04 LTS (HVM), SSD Volume Type**
 2. Pilih Instance type **t2.medium**:
-    ![Pilih Instances](./g.png)
+    ![Pilih Instances](./pic/g.png)
 3. Tambahkan penyimpanan:
-    ![Pilih Storage](./h.png)
+    ![Pilih Storage](./pic/h.png)
     >Note: Configure storage: **30 GiB, gp3**
 4. Tuliskan nama Tags: 
-    ![Pilih Tags](./i.png)
+    ![Pilih Tags](./pic/i.png)
     >Note: Name and tags: **Tugas Akhir**
 5. Pilih port dari *Network Setting* sebagai berikut:
-    ![Pilih Network](./j.png)
+    ![Pilih Network](./pic/j.png)
     >
 6. Kemudian pilih **Review** dan **Launch**. Maka akan tampil halaman berikut ini, kita memilih *key pair* secara default yaitu __Vockey__.
-    ![Pilih Key](./k.png)
+    ![Pilih Key](./pic/k.png)
 
 Selamat, mesin Anda telah dibuat dan akan masuk ke daftar mesin yang telah Anda buat. Langkah selanjutnya, kita akan menginstall beberapa aplikasi dalam Linux, yang akan digunakan untuk langkah praktikum. 
 
@@ -99,7 +99,7 @@ Mininet adalah sebuah emulator jaringan yang dapat digunakan untuk membuat sebua
 
 Untuk melakukan instalasi pada Mesin kita dapat masuk ke **Terminal AWS** dan menghubungkan mesin yang telah dibuat tadi.
 
->Pilih mesin kemudian klik **Connect** akan masuk sebagai berikut.![Pilih Connect](./l.png) ![Tampilan Connect](./m.png)
+>Pilih mesin kemudian klik **Connect** akan masuk sebagai berikut.![Pilih Connect](.//pic/l.png) ![Tampilan Connect](./pic/m.png)
 >Kemudian Jalankan dengan perintah pada terminal berikut:
 >``` 
 >ssh -i .ssh/labsuser.pem ubuntu@ec2-52-91-249-20.compute-1.amazonaws.com
@@ -112,14 +112,14 @@ Langkah-langkah instalasi Mininet:
 ```
 git clone https://github.com/mininet/mininet
 ```
-![Clone](./p.png)
+![Clone](./pic/p.png)
 
 > Mengunduh repositori mininet, dalam contoh untuk version mininet 2.3.0
 2. Install Mininet dengan sintaks berikut
 ```
 mininet/util/install.sh -nfv
 ```
-![Install Mininet](./mnins.png)
+![Install Mininet](./pic/mnins.png)
 
 >Instalasi untuk mininet, user switch dan OpenFlow
 
@@ -135,7 +135,7 @@ Langkah-langkah instalasi RYU:
 ```
 git clone https://github.com/osrg/ryu.git
 ```
-![Cloneryu](./cloneryu.png)
+![Cloneryu](./pic/cloneryu.png)
 
 > Mengunduh repositori ryu
 2. Install RYU dengan sintaks berikut
@@ -144,7 +144,7 @@ cd ryu
 pip install .
 cd
 ```
-![Install Ryu](./ryuins.png)
+![Install Ryu](./pic/ryuins.png)
 
 <hr>
 
@@ -158,7 +158,7 @@ Langkah-langkah melakukan clone FlowManager pada terminal dengan sintaks berikut
 git clone https://github.com/martimy/flowmanager
 cd
 ```
-![flow clone](./flowins.png)
+![flow clone](./pic/flowins.png)
 
 <hr>
 
@@ -187,10 +187,10 @@ Untuk membuat sebuah topologi ketikan kode berikut:
 $ sudo mn
 ```
 Perintah tersebut akan menjalankan program di bawah ini :
-![sudomn](./sudomn.png)
+![sudomn](./pic/sudomn.png)
 
 Program di atas dapat diamati secara tampilan sebagai berikut:
-![topologi1](./topologi1.png)
+![topologi1](./pic/topologi1.png)
 
 > Keterangan: Dalam program di atas, kita membuat dua host yang bernama **h1** dan **h2**, kemudian membuat satu controller yang bernama **c0** dan satu switch yang bernama **s1**. 
 
@@ -207,7 +207,7 @@ Untuk mengetahui informasi **informasi nodes** maka dapat menggunakan sintaks be
 mininet> dump
 ```
 Contoh kode yang telah dijalankan:
-![mininet](./mininet.png)
+![mininet](./pic/mininet.png)
 >Keterangan:
 > 
 >- Pada perintah nodes, dapat diketahui hasil nnya ialah sebagai berikut: **c0** adalah controller, **h1** dan **h2** adalah host, **s1** adalah switch. 
@@ -218,7 +218,7 @@ Untuk mengetahui sintaks lebih banyak dapat mengakses kode berikut:
 ```
 mininet> help
 ```
-![help](./help.png)
+![help](./pic/help.png)
 
 <br>
 <br>
@@ -230,7 +230,7 @@ Jalankan kode berikut:
 mininet> pingall
 mininet> h1 ping -c 2 h2
 ```
-![pingall](./pingall.png)
+![pingall](./pic/pingall.png)
 >Keterangan:
 > 
 > - Pada perintah pingall dapat diartikan semua node saling ping, apabila berhasil maka akan ada hubungan.
