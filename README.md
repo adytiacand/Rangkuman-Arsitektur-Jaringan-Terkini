@@ -94,7 +94,7 @@ Selamat, mesin Anda telah dibuat dan akan masuk ke daftar mesin yang telah Anda 
 
 *Note: Jangan lupa untuk memeriksa update software. Dengan perintah*
 ```
-sudo apt -yy update && sudo apt -yy upgrade
+$ sudo apt -yy update && sudo apt -yy upgrade
 ```
 
 
@@ -110,7 +110,7 @@ Untuk melakukan instalasi pada Mesin kita dapat masuk ke **Terminal AWS** dan me
 >Pilih mesin kemudian klik **Connect** akan masuk sebagai berikut.![Pilih Connect](.//pic/l.png) ![Tampilan Connect](./pic/m.png)
 >Kemudian Jalankan dengan perintah pada terminal berikut:
 >``` 
->ssh -i .ssh/labsuser.pem ubuntu@ec2-52-91-249-20.compute-1.amazonaws.com
+>$ ssh -i .ssh/labsuser.pem ubuntu@ec2-52-91-249-20.compute-1.amazonaws.com
 >```
 >Maka akan keluar halaman seperti berikut ini.
 >image.png
@@ -118,14 +118,14 @@ Untuk melakukan instalasi pada Mesin kita dapat masuk ke **Terminal AWS** dan me
 Langkah-langkah instalasi Mininet:
 1. Melakukan clone aplikasi Mininet pada github dengan sintaks berikut
 ```
-git clone https://github.com/mininet/mininet
+$ git clone https://github.com/mininet/mininet
 ```
 ![Clone](./pic/p.png)
 
 > Mengunduh repositori mininet, dalam contoh untuk version mininet 2.3.0
 2. Install Mininet dengan sintaks berikut
 ```
-mininet/util/install.sh -nfv
+$ mininet/util/install.sh -nfv
 ```
 ![Install Mininet](./pic/mnins.png)
 
@@ -141,16 +141,16 @@ Ryu adalah sebuah framework software untuk SDN Controller dan pengembangan aplik
 Langkah-langkah instalasi RYU:
 1. Melakukan clone aplikasi RYU pada github dengan sintaks berikut
 ```
-git clone https://github.com/osrg/ryu.git
+$ git clone https://github.com/osrg/ryu.git
 ```
 ![Cloneryu](./pic/cloneryu.png)
 
 > Mengunduh repositori ryu
 2. Install RYU dengan sintaks berikut
 ```
-cd ryu
-pip install .
-cd
+$ cd ryu
+$ pip install .
+$ cd
 ```
 ![Install Ryu](./pic/ryuins.png)
 
@@ -163,7 +163,7 @@ FlowManager adalah aplikasi pengontrol RYU yang memberikan kontrol manual penggu
 
 Langkah-langkah melakukan clone FlowManager pada terminal dengan sintaks berikut
 ```
-git clone https://github.com/martimy/flowmanager
+$ git clone https://github.com/martimy/flowmanager
 cd
 ```
 ![flow clone](./pic/flowins.png)
@@ -251,6 +251,200 @@ mininet> exit
 ```
 <br>
 <hr>
+
+# Pelajaran 1: Membuat Custom Topology pada Mininet
+
+## Apa itu Custom Topology?
+Custom Topology adalah pembuatan topologi secara bebas dengan mengeksekusi sebuah code oleh mininet. Dalam pembuatan custom topology dapat dilakukan dengan 2 cara, yaitu secara manual dengan menulis kode python atau membuat konfigurasi topologi menggunakan GUI editor seperti *Virtual Network Description (vnd)* kemudian diexport ke bentuk file yang dapat di-running oleh mininet.
+
+Kali ini kita akan membuat custom topology sederhana dengan kasus sebagai berikut.
+![soal](./pic2/soalct.png)
+
+>Keterangan :
+> - Terdapat 6 buah host dengan ip masing-masing : 10.1.0.1-10.1.0.6
+> - Terdapat 3 buah switch
+
+Sebelum menjalankan program, terlebih dahulu kita membuat file python. Code di bawah ini, dengan nama **custom_topology.py**.
+
+```python
+from mininet.topo import Topo
+from mininet.cli import CLI
+from mininet.log import setLogLevel, info
+
+class MyTopo( Topo ):  
+    "Simple topology example."
+
+    def addSwitch(self, name, **opts):
+        kwargs ={'protocols':'OpenFlow13'}
+        kwargs.update(opts)
+        return super(MyTopo, self).addSwitch(name, **kwargs)
+
+    def __init__( self ):
+        "Create custom topo."
+
+        # Initialize topology
+        Topo.__init__( self )
+
+        # Add hosts and switches
+        info('\n***Add Hosts ***\n')
+        Host1 = self.addHost( 'h1' , ip='10.1.0.1/24' )
+        Host2 = self.addHost( 'h2' , ip='10.1.0.2/24' )
+        Host3 = self.addHost( 'h3' , ip='10.2.0.3/24' )
+        Host4 = self.addHost( 'h4' , ip='10.2.0.4/24' )
+        Host5 = self.addHost( 'h5' , ip='10.3.0.5/24' )
+        Host6 = self.addHost( 'h6' , ip='10.3.0.6/24' )
+
+        info('\n***Add Switches ***\n')
+        Switch1 = self.addSwitch('s1')
+        Switch2 = self.addSwitch('s2')
+        Switch3 = self.addSwitch('s3') 
+
+        # Add links
+        info('***\nAdd Links for Hosts***\n')
+        self.addLink( Host1, Switch1 )
+        self.addLink( Host2, Switch1 )
+        self.addLink( Host3, Switch2 )
+        self.addLink( Host4, Switch2 )
+        self.addLink( Host5, Switch3 )
+        self.addLink( Host6, Switch3 )
+
+        info('\n***Add Links between Switches***\n')
+        self.addLink( Switch1, Switch2 ) 
+        self.addLink( Switch2, Switch3 )
+        self.addLink( Switch1, Switch3 )
+
+topos = { 'mytopo': ( lambda: MyTopo() ) }
+
+```
+Penjelasan kode di atas adalah:
+
+sintaks | penjelasan
+---|---
+`Host1 = self.addHost( 'h1' , ip='10.1.0.1/24' )` | Sintaks ini digunakan untuk membuat host dengan nama h1 dan alamat ip tertentu
+`Switch1 = self.addSwitch('s1')` | Sintaks ini digunakan untuk membuat Switch1 dengan nama s1
+`self.addLink( Host1, Switch1 )` | Sintaks ini digunakan untuk membuat hubungan Host dengan Switch atau Switch dengan Switch.
+
+Tulislah dengan perintah berikut di terminal AWS:
+
+```
+$ nano custom_topology.py
+```
+Maka akan tampil seperti gambar berikut, dan tulis kodenya seperti di atas. 
+
+![code](./pic2/code.png)
+
+Langkah pengerjaan praktikum:
+1. Jalankan program tanpa menggunakan controller dengan file **custom_topo.py** yang telah dibuat.
+```
+$ sudo mn --controller=none --custom custom_topology.py --topo=mytopo --mac --arp
+```
+Maka akan jalan seperti berikut ini:
+![running](./pic2/running.png)
+
+Untuk mengetahui nodes yang telah dibuat kita menggunakan kode:
+
+```
+mininet> nodes
+```
+dan akan keluar tampilan berikut:
+![nodes](./pic2/nodes.png)
+> Keterangan: Nodes terdiri atas **6 Host : h1, h2, h3, h4, h5 dan h6** serta **3 Switch: s1, s2, s3**, dan tidak ada **controller**.
+
+<br><br>
+Kemudian untuk mengetahui hubungan, kita dapat menggunakan sintaks dibawah ini
+```
+mininet> links
+```
+dan akan keluar tampilan berikut:
+
+![links](./pic2/links.png)
+
+> Keterangan: <br>
+> *h1 port 0 terhubung dengan s1 di port 1*<br>
+> *h2 port 0 terhubung dengan s1 di port 2*<br>
+> *h3 port 0 terhubung dengan s2 di port 1*<br>
+> *h4 port 0 terhubung dengan s2 di port 2*<br>
+> *h5 port 0 terhubung dengan s3 di port 1*<br>
+> *h6 port 0 terhubung dengan s3 di port 2*<br>
+><br>
+> *s1 port 3 terhubung dengan s2 di port 3*<br>
+> *s1 port 4 terhubung dengan s3 di port 4*<br>
+> *s2 port 4 terhubung dengan s3 di port 3*<br>
+
+Dapat disimpulkan bahwa keterangan di atas saling terhubung satu sama lainnya.
+
+Sekarang kita akan menggunakan perintah net, untuk mengetahui link lebih detail.
+
+```
+mininet> net
+```
+dan tampilan pada terminal:
+![net](./pic2/net.png)
+> Perintah `net` sebenarnya sama dengan perintah links, tetapi yang membedakan adalah hubungan atau jalur dan port yang ditampilkan ebih mendetail.
+
+Menggunakan perintah dump untuk melihat lebih detail informasi:
+```
+mininet> dump
+```
+dan tampilan pada terminal:
+![dump](./pic2/dump.png)
+
+> Dapat diketahui bahwa perintah `dump` akan menampilkan informasi lebih detail setiap nodes. Contoh: <br> *Host h1 memiliki satu buah port dengan nama **eth0**, dan memliki IP: **10.1.0.1** dengan pid=1855.<br>* *Sementara untuk switch menggunakan OVS semua bernilai none, hal ini dikarenakan tidak adanya hubungan.*
+
+Perintah berikut digunakan untuk mengetahui antarmuka h1:
+```
+mininet> h1 ifconfig
+```
+dan tampilan pada terminal:
+![h1](./pic2/h1ifconfig.png)
+> Perintah ini mengeksekusi perintah ifconfig Linux pada host h1. Perintah menunjukkan
+antarmuka host h1. Tampilan menunjukkan bahwa host h1 memiliki antarmuka h1-eth0 yang dikonfigurasi
+dengan alamat IP 10.1.0.1, dan antarmuka lain yang dikonfigurasi dengan alamat IP 127.0.0.1
+(antarmuka putaran balik).
+
+Kemudian kita melakukan test ping pada semua nodes, dan hasil yang didapatkan sebagai berikut:
+```
+mininet> pingall
+```
+![pingfail](./pic2/pingfail.png)
+
+>Didapatkan bahwa semua paket gagal karena semua switch OVS tidak terhubung. Dan tidak ada controller yang mengatur.
+
+Untuk itu, kita perlu men-*set up* beberapa dengan code berikut:
+```
+mininet> sh ovs-ofctl add-flow s1 -O OpenFlow13 "in_port=1,action=output:2"
+mininet> sh ovs-ofctl add-flow s1 -O OpenFlow13 "in_port=2,action=output:1"
+```
+>Sintaks di atas digunakan untuk membuat aliran dalam switch sehingga semuanya bisa terhubung, dan secara manual.
+>![diagram](./pic2/diagram.png)
+
+Untuk mengeceknya kita dapat menggunakan lagi sintaks berikut:
+```
+mininet> h1 ping h2
+```
+![uji](./pic2/ujiping.png)
+> Note:untuk menghetikan menggunakan perintah CTRL+C
+
+Kesimpulannya, h1 dapat melakukan ping ke h2 melalui s1, begitulah sebaliknya. Dikarenakan sudah didefinisikan untuk membuat aliran. sesuai kode diatas. Sementara host lain tidak dapat melakukan ping dikarenakan belum ada hubungan dapat dilihat setelah mengeceknya lagi dengan `mininet> pingall`. 
+
+![pingall2](./pic2/pingfail2.png)
+
+Selamat, **pelajaran 1** telah selesai.
+
+<hr>
+
+# Pelajaran 2: Server Load Balancing
+## Apa itu Load Balancer?
+Aplikasi Load Balancer yang digunakan pada pengontrol RYU untuk melakukan penyeimbangan beban / load-balanching di seluruh server menggunakan Python.
+
+Contohnya:
+*Paket IP dari masing-masing host klien (h3, h4, h5, h6) hingga 10.0.0.100 (IP virtual) dikirim ke host h1 (10.0.0.1) atau host h2 (10.0.0.2) berdasarkan host klien alamat MAC. Jika nilai integer dari alamat MAC klien ganjil (client-MAC-Address % 2 == 1) maka akan dikirim ke h1, sebaliknya ke h2.* Referensi: https://github.com/annakz1/ryu/
+
+Kali ini, kita akan membuat Load Balancer dengan skema berikut:
+
+![pingall2](./pic3/diagram.png)
+
+
 
 
 
